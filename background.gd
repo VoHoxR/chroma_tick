@@ -1,26 +1,25 @@
 extends ColorRect
 
-var colors = [
- Color(0,0,1)
-]
-
-var current_color_index = 0
-
-func _ready():
-	# Start the timer when the scene loads
-	$"../Timer".start()
-
-
-
-
-func _on_timer_timeout():
-	# Declare the 'color' variable before using it
-	var color = colors[current_color_index]
-
-	# Change the color of the ColorRect
-	self.color = color
-
-	# Increment the color index, and loop back to 0 if it exceeds the array length
-	current_color_index += 1
-	if current_color_index >= colors.size():
-		current_color_index = 0
+# Properties
+var color_speed = 1.0  # Adjust this value to control the speed of color change
+var time_passed = 0.0
+@onready var gamescript = get_node
+var first_component = 0
+var second_component = 0
+# Called every frame
+func _process(delta):
+	# Update the time passed
+	time_passed += delta
+	if Global.num_of_garrahs < 3000:
+		first_component = (sin(time_passed * color_speed) + 1.0) / 2.0
+		second_component = (sin(time_passed * color_speed + PI/2) + 1.0) / 2.0
+		self.color = Color(0.0, first_component, second_component)
+		
+	if Global.num_of_garrahs >= 3000:
+		Global.reset_speed = Global.reset_speed2
+		color_speed = 3.0
+		first_component = (sin(time_passed * color_speed + PI/2) + 1.0) / 2.0
+		second_component = (sin(time_passed * color_speed) + 1.0) / 2.0
+		self.color = Color(first_component,second_component,0)
+	
+	

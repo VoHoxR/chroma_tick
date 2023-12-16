@@ -1,2 +1,5 @@
 res://game.tscn
+res://game.gd
 res://background.gd
+res://global.gd
+res://Global.gd

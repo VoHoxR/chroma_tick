@@ -1,7 +1,7 @@
-ColorRect
 Timer
-Button
 Label
+ColorRect
+Button
 CanvasLayer
 Sprite2D
 TextEdit
